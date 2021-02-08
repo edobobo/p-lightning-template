@@ -1,0 +1,6 @@
+# @package _global_
+
+train_path: 'data/train.tsv'
+validation_path: 'data/validation.tsv'
+test_path: 'data/test.tsv'
+num_workers: 1
