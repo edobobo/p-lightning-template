@@ -8,7 +8,7 @@ class BasePLModule(pl.LightningModule):
 
     def __init__(self, conf, *args, **kwargs) -> None:
         super().__init__(args, kwargs)
-        self.hparams = conf
+        self.save_hyperparameters(conf)
 
     def forward(self, **kwargs) -> dict:
         """

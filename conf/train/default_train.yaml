@@ -9,6 +9,7 @@ gradient_clip_value: 10.0
 apply_early_stopping: True
 val_check_interval: 1.0
 monitor_var: 'val_loss'
+monitor_var_mode: 'min'
 patience: 50
 model_name: 'default_name'
 save_top_k: 5

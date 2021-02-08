@@ -36,11 +36,3 @@ components:
 In order to set up the python interpreter we utilize [conda](https://docs.conda.io/projects/conda/en/latest/index.html)
 , the script setup.sh creates a conda environment and install pytorch
 and the dependencies in "requirements.txt". 
-
-## Run
-All the paths in the project are relative to the 'p-lightning-template' 
-repository, thus in order to run the "train.py" script you should properly 
-set the PYTHONPATH and launch it from the main directory:
-```
-PYTHONPATH=$(pwd) python train.py ...
-```

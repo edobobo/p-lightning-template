@@ -23,7 +23,7 @@ def train(conf: omegaconf.DictConfig) -> None:
         callbacks_store.append(
             EarlyStopping(
                 monitor=conf.monitor_var,
-                mode='max',
+                mode=conf.monitor_var_mode,
                 patience=conf.patience
             )
         )
@@ -34,7 +34,7 @@ def train(conf: omegaconf.DictConfig) -> None:
             dirpath=f'experiments/{conf.model_name}',
             save_top_k=conf.save_topk,
             verbose=True,
-            mode='max'
+            mode=conf.monitor_var_mode
         )
     )
 
