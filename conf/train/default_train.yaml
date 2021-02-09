@@ -4,6 +4,7 @@
 batch_size: 16
 gradient_acc_steps: 4
 gradient_clip_value: 10.0
+max_steps: 100000
 
 # evaluation and persistence
 apply_early_stopping: True
