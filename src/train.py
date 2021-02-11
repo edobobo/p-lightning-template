@@ -32,7 +32,7 @@ def train(conf: omegaconf.DictConfig) -> None:
         ModelCheckpoint(
             monitor=conf.monitor_var,
             dirpath=f'experiments/{conf.model_name}',
-            save_top_k=conf.save_topk,
+            save_top_k=conf.save_top_k,
             verbose=True,
             mode=conf.monitor_var_mode
         )
