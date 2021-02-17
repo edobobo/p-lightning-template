@@ -1,0 +1,2 @@
+pytorch-lightning==1.1.7
+hydra-core==1.0.6
