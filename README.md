@@ -35,4 +35,8 @@ components:
 ## Initialize environment
 In order to set up the python interpreter we utilize [conda](https://docs.conda.io/projects/conda/en/latest/index.html)
 , the script setup.sh creates a conda environment and install pytorch
-and the dependencies in "requirements.txt". 
+and the dependencies in "requirements.txt".
+
+
+## Using the repository
+To use this repository as a starting template for you projects, you can just click the green button "Use this template" at the top of this page. More on using GitHub repositories on the following [link](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template#creating-a-repository-from-a-template).
