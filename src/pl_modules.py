@@ -32,7 +32,7 @@ class BasePLModule(pl.LightningModule):
         forward_output = self.forward(**batch)
         self.log('val_loss', forward_output['loss'])
 
-    def test_step(self, batch: dict) -> Any:
+    def test_step(self, batch: dict, batch_idx: int) -> Any:
         raise NotImplementedError
 
     def configure_optimizers(self):
