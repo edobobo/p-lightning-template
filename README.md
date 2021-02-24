@@ -30,7 +30,7 @@ components:
 - **pl_data_modules.py** where you can declare your LightningDataModules.
 - **pl_modules.py** where you can declare your LightningModules.
 - **train.py** the main script to start the training phase.
-- **conf** the dircetory containing the config files of Hydra.
+- **conf** the directory containing the config files of Hydra.
 
 ## Initialize environment
 In order to set up the python interpreter we utilize [conda](https://docs.conda.io/projects/conda/en/latest/index.html)
