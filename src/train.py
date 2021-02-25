@@ -9,6 +9,9 @@ from src.pl_modules import BasePLModule
 
 
 def train(conf: omegaconf.DictConfig) -> None:
+    
+    # reproducibility
+    pl.seed_everything(conf.seed)
 
     # data module declaration
     pl_data_module = BasePLDataModule(conf)
@@ -40,6 +43,7 @@ def train(conf: omegaconf.DictConfig) -> None:
 
     # trainer
     trainer = pl.Trainer(
+        max_epochs=conf.max_epochs,
         gpus=conf.gpus,
         accumulate_grad_batches=conf.gradient_acc_steps,
         gradient_clip_val=conf.gradient_clip_value,
