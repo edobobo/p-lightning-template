@@ -1,5 +1,8 @@
 # @package _global_
 
+# reproducibility
+seed: 42
+
 # optimization
 batch_size: 16
 gradient_acc_steps: 4

@@ -9,6 +9,9 @@ from src.pl_modules import BasePLModule
 
 
 def train(conf: omegaconf.DictConfig) -> None:
+    
+    # reproducibility
+    pl.seed_everything(conf.seed)
 
     # data module declaration
     pl_data_module = BasePLDataModule(conf)
