@@ -43,7 +43,6 @@ def train(conf: omegaconf.DictConfig) -> None:
 
     # trainer
     trainer = pl.Trainer(
-        max_epochs=conf.max_epochs,
         gpus=conf.gpus,
         accumulate_grad_batches=conf.gradient_acc_steps,
         gradient_clip_val=conf.gradient_clip_value,
