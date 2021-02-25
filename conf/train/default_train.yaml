@@ -12,11 +12,10 @@ val_check_interval: 1.0
 monitor_var: 'val_loss'
 monitor_var_mode: 'min'
 patience: 50
-model_name: 'default_name'
+model_name: 'default_name'  # used to name the directory in which model's checkpoints will be stored (experiments/model_name/...)
 save_top_k: 5
 
 # core
 gpus: 1
 precision: 16
 amp_level: '01'
-
