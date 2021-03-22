@@ -1,24 +1,34 @@
-# @package _global_
+# @package _group_
 
 # reproducibility
 seed: 42
 
-# optimization
-batch_size: 16
-gradient_acc_steps: 4
-gradient_clip_value: 10.0
-max_steps: 100000
+# model name
+model_name: default_name  # used to name the directory in which model's checkpoints will be stored (experiments/model_name/...)
 
-# evaluation and persistence
-apply_early_stopping: True
-val_check_interval: 1.0
-monitor_var: 'val_loss'
-monitor_var_mode: 'min'
-patience: 50
-model_name: 'default_name'  # used to name the directory in which model's checkpoints will be stored (experiments/model_name/...)
-save_top_k: 5
+# pl_trainer
+pl_trainer:
+  gpus: 1
+  accumulate_grad_batches: 4
+  gradient_clip_val: 10.0
+  val_check_interval: 1.0  # you can specify an int "n" here => validation every "n" steps
+  max_steps: 100_000
+  # uncomment the lines below for training with mixed precision
+  # precision: 16
+  # amp_level: O2
 
-# core
-gpus: 1
-precision: 16
-amp_level: '01'
+# early stopping callback
+# "early_stopping_callback: null" will disable early stopping
+early_stopping_callback:
+  monitor: val_loss
+  mode: min
+  patience: 50
+
+# model_checkpoint_callback
+# "model_checkpoint_callback: null" will disable model checkpointing
+model_checkpoint_callback:
+  monitor: val_loss
+  mode: min
+  verbose: True
+  save_top_k: 5
+  dirpath: experiments/${train.model_name}

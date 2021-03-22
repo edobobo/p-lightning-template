@@ -9,9 +9,9 @@ from src.pl_modules import BasePLModule
 
 
 def train(conf: omegaconf.DictConfig) -> None:
-    
+
     # reproducibility
-    pl.seed_everything(conf.seed)
+    pl.seed_everything(conf.train.seed)
 
     # data module declaration
     pl_data_module = BasePLDataModule(conf)
@@ -22,36 +22,16 @@ def train(conf: omegaconf.DictConfig) -> None:
     # callbacks declaration
     callbacks_store = []
 
-    if conf.apply_early_stopping:
-        callbacks_store.append(
-            EarlyStopping(
-                monitor=conf.monitor_var,
-                mode=conf.monitor_var_mode,
-                patience=conf.patience
-            )
-        )
+    if conf.train.early_stopping_callback is not None:
+        early_stopping_callback = hydra.utils.instantiate(conf.train.early_stopping_callback)
+        callbacks_store.append(early_stopping_callback)
 
-    callbacks_store.append(
-        ModelCheckpoint(
-            monitor=conf.monitor_var,
-            dirpath=f'experiments/{conf.model_name}',
-            save_top_k=conf.save_top_k,
-            verbose=True,
-            mode=conf.monitor_var_mode
-        )
-    )
+    if conf.train.model_checkpoint_callback is not None:
+        model_checkpoint_callback = hydra.utils.instantiate(conf.train.early_stopping_callback)
+        callbacks_store.append(model_checkpoint_callback)
 
     # trainer
-    trainer = pl.Trainer(
-        gpus=conf.gpus,
-        accumulate_grad_batches=conf.gradient_acc_steps,
-        gradient_clip_val=conf.gradient_clip_value,
-        val_check_interval=conf.val_check_interval,
-        callbacks=callbacks_store,
-        max_steps=conf.max_steps,
-        precision=conf.precision,
-        amp_level=conf.amp_level
-    )
+    trainer = hydra.utils.instantiate(conf.train.pl_trainer, callbacks=callbacks_store)
 
     # module fit
     trainer.fit(pl_module, datamodule=pl_data_module)
