@@ -8,6 +8,7 @@ model_name: default_name  # used to name the directory in which model's checkpoi
 
 # pl_trainer
 pl_trainer:
+  _target_: pytorch_lightning.Trainer
   gpus: 1
   accumulate_grad_batches: 4
   gradient_clip_val: 10.0
@@ -20,6 +21,7 @@ pl_trainer:
 # early stopping callback
 # "early_stopping_callback: null" will disable early stopping
 early_stopping_callback:
+  _target_: pytorch_lightning.callbacks.EarlyStopping
   monitor: val_loss
   mode: min
   patience: 50
@@ -27,6 +29,7 @@ early_stopping_callback:
 # model_checkpoint_callback
 # "model_checkpoint_callback: null" will disable model checkpointing
 model_checkpoint_callback:
+  _target_: pytorch_lightning.callbacks.ModelCheckpoint
   monitor: val_loss
   mode: min
   verbose: True
