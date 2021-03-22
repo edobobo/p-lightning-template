@@ -2,6 +2,7 @@ import omegaconf
 import hydra
 
 import pytorch_lightning as pl
+from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint
 
 from src.pl_data_modules import BasePLDataModule
@@ -23,15 +24,15 @@ def train(conf: omegaconf.DictConfig) -> None:
     callbacks_store = []
 
     if conf.train.early_stopping_callback is not None:
-        early_stopping_callback = hydra.utils.instantiate(conf.train.early_stopping_callback)
+        early_stopping_callback: EarlyStopping = hydra.utils.instantiate(conf.train.early_stopping_callback)
         callbacks_store.append(early_stopping_callback)
 
     if conf.train.model_checkpoint_callback is not None:
-        model_checkpoint_callback = hydra.utils.instantiate(conf.train.early_stopping_callback)
+        model_checkpoint_callback: ModelCheckpoint = hydra.utils.instantiate(conf.train.early_stopping_callback)
         callbacks_store.append(model_checkpoint_callback)
 
     # trainer
-    trainer = hydra.utils.instantiate(conf.train.pl_trainer, callbacks=callbacks_store)
+    trainer: Trainer = hydra.utils.instantiate(conf.train.pl_trainer, callbacks=callbacks_store)
 
     # module fit
     trainer.fit(pl_module, datamodule=pl_data_module)
