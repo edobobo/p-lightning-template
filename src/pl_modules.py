@@ -34,6 +34,15 @@ class BasePLModule(pl.LightningModule):
     def test_step(self, batch: dict, batch_idx: int) -> Any:
         raise NotImplementedError
 
+    def training_epoch_end(self, outputs):
+        raise NotImplementedError
+
+    def validation_epoch_end(self, outputs):
+        raise NotImplementedError
+
+    def test_epoch_end(self, outputs):
+        raise NotImplementedError
+
     def configure_optimizers(self):
         """
         FROM PYTORCH LIGHTNING DOCUMENTATION
