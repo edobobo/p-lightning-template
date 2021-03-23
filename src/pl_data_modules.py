@@ -1,10 +1,9 @@
-from typing import Any, Union, List, Optional
+from typing import Any, List, Optional, Union
 
-from omegaconf import DictConfig
-
-import torch
-from torch.utils.data import DataLoader
 import pytorch_lightning as pl
+import torch
+from omegaconf import DictConfig
+from torch.utils.data import DataLoader
 
 
 class BasePLDataModule(pl.LightningDataModule):

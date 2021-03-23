@@ -1,9 +1,9 @@
-import omegaconf
 import hydra
-
+import omegaconf
 import pytorch_lightning as pl
 from pytorch_lightning import Trainer
 from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint
+from pytorch_lightning.loggers import WandbLogger
 
 from src.pl_data_modules import BasePLDataModule
 from src.pl_modules import BasePLModule
@@ -24,15 +24,25 @@ def train(conf: omegaconf.DictConfig) -> None:
     callbacks_store = []
 
     if conf.train.early_stopping_callback is not None:
-        early_stopping_callback: EarlyStopping = hydra.utils.instantiate(conf.train.early_stopping_callback)
+        early_stopping_callback: EarlyStopping = hydra.utils.instantiate(
+            conf.train.early_stopping_callback
+        )
         callbacks_store.append(early_stopping_callback)
 
     if conf.train.model_checkpoint_callback is not None:
-        model_checkpoint_callback: ModelCheckpoint = hydra.utils.instantiate(conf.train.early_stopping_callback)
+        model_checkpoint_callback: ModelCheckpoint = hydra.utils.instantiate(
+            conf.train.early_stopping_callback
+        )
         callbacks_store.append(model_checkpoint_callback)
 
+    if conf.logging.log:
+        logger: WandbLogger = hydra.utils.instantiate(conf.logging.wandb_arg)
+        logger.watch(conf.logging.watch)
+
     # trainer
-    trainer: Trainer = hydra.utils.instantiate(conf.train.pl_trainer, callbacks=callbacks_store)
+    trainer: Trainer = hydra.utils.instantiate(
+        conf.train.pl_trainer, callbacks=callbacks_store, logger=(logger if conf.logging.log else None)
+    )
 
     # module fit
     trainer.fit(pl_module, datamodule=pl_data_module)
@@ -40,11 +50,14 @@ def train(conf: omegaconf.DictConfig) -> None:
     # module test
     trainer.test(pl_module, datamodule=pl_data_module)
 
+    if conf.logging.log:
+        logger.experiment.finish()
 
-@hydra.main(config_path='../conf', config_name='root')
+
+@hydra.main(config_path="../conf", config_name="root")
 def main(conf: omegaconf.DictConfig):
     train(conf)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
