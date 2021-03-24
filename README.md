@@ -76,6 +76,13 @@ has the relative path 'data/train.tsv' you can convert it to a full path by prep
 variable before 
 
 
+## Contributing
+Contributions are always more than welcome, the only thing to take into account when submitting a pull request is
+that we utilize the [Black](https://github.com/psf/black) code formatter with a max length for the code of 120. 
+More pragmatically you should ensure to utilize the command "black -l 120" on the whole "src" directory before pushing
+the code. 
+
+
 ## Other useful repositories
 This repository has been created with the idea of providing a simple skeleton from which you can 
 start a PyTorch Lightning project. Instead of favoring the customizability, we favored the simplicity
