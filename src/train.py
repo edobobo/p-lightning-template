@@ -41,10 +41,10 @@ def train(conf: omegaconf.DictConfig) -> None:
     trainer.test(pl_module, datamodule=pl_data_module)
 
 
-@hydra.main(config_path='../conf', config_name='root')
+@hydra.main(config_path="../conf", config_name="root")
 def main(conf: omegaconf.DictConfig):
     train(conf)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
