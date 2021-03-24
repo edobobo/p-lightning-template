@@ -23,20 +23,20 @@ Facebook Research built for "*elegantly configuring complex applications*".
 ## Repository Structure
 ```
 p-lightning-template
-| conf  # contains Hydra config files
+| conf                      # contains Hydra config files
   | data
   | model
   | train
-  root.yaml  # hydra root config file
-| data  # datasets should go here
-| experiments  # where the models are stored
+  root.yaml                 # hydra root config file
+| data                      # datasets should go here
+| experiments               # where the models are stored
 | src
-  | pl_data_modules.py  # base LightinigDataModule
-  | pl_modules.py  # base LightningModule
-  | train.py  # main script for training the network
+  | pl_data_modules.py      # base LightinigDataModule
+  | pl_modules.py           # base LightningModule
+  | train.py                # main script for training the network
 | README.md
 | requirements.txt
-| setup.sh # environment setup script 
+| setup.sh                  # environment setup script 
 ```
 The structure of the repository is very simplistic and involves mainly four
 components:
