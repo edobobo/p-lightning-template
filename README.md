@@ -101,3 +101,6 @@ other Lightning templates. We mention here these repositories:
   Bart based Seq2Seq models without writing a single line of code!
 it in the yaml files by doing that following: '${hydra:runtime.cwd}/data/train.tsv'.
   
+Final remark, if your project involves Natural Language Processing, you might want to take a look at [Classy](https://sunglasses-ai.github.io/classy/).
+Classy is a simple-to-use library (that I co-authored) for building high-performance Machine Learning models in NLP, and it should be a very good start
+for almost every NLP project.
